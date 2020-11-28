@@ -12,14 +12,17 @@ module.exports = (router) => {
 
   const signIn = async (req, res, next) => {
     const { email, password } = req.body;
+    console.log(req.body);
     try {
       const user = await Users.findOne({ where: { email } });
+
       if (!user) {
-        res.json({ error: "Email não encontrado" });
+        res.json({ error: 'Email não encontrado' })
+        return
       }
       const isValidPassword = bcrypt.compareSync(password, user.password);
       if (!isValidPassword) {
-        res.json({ error: "Senha invalida" });
+        return res.json({ error: "Senha invalida" });
       }
       res.json(user);
     } catch (err) {

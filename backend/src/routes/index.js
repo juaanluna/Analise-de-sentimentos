@@ -1,7 +1,7 @@
 const { Router } = require("express");
 const users = require("./users");
 const auth = require("./auth");
-const researches = require("./researches");
+const searchs = require("./searchs");
 
 module.exports = () => {
   const router = Router();
@@ -13,7 +13,7 @@ module.exports = () => {
   //outras rotas
   users(router);
   auth(router);
-  researches(router);
-  
+  searchs(router);
+
   return router;
 };

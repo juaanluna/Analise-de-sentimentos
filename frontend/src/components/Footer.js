@@ -14,7 +14,7 @@ const Footer = () => {
       }}
     >
       <p>
-      © 2020 Copyright:
+      Desenvolvido por:
         <a 
         style={{color:'grey'}} 
         href="https://www.instagram.com/juaanluna/?hl=pt-br"> Juan Luna</a> e

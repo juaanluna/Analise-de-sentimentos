@@ -1,25 +1,34 @@
-import React from 'react';
-import { Table, Container, Button } from 'react-bootstrap';
+import React, { useEffect } from "react";
+import { Table, Container, Button } from "react-bootstrap";
+import { getUsers } from "../../store/users/users.action";
+import { useDispatch, useSelector } from "react-redux";
+import { FaPen, FaRegEye } from "react-icons/fa";
 
 const Users = () => {
-  const agua = 123;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUsers());
+  }, [dispatch]);
+
+  const users = useSelector((state) => state.users.users);
   return (
     <div>
       <Container>
         <div
           style={{
-            borderBottom: '1px solid #a5a4a4',
-            padding: '2%',
-            marginTop: '2%',
-            display: 'flex',
-            justifyContent: 'space-between',
+            borderBottom: "1px solid #a5a4a4",
+            padding: "2%",
+            marginTop: "2%",
+            display: "flex",
+            justifyContent: "space-between",
           }}
         >
-          <h3 style={{ color: 'grey' }}>Usuários</h3>
+          <h3 style={{ color: "grey" }}>Usuários</h3>
           <Button
             variant="success"
             onClick={() => {
-              window.location.replace('/usersForm');
+              window.location.replace("/users/form");
             }}
           >
             Adicionar novo usuário
@@ -38,25 +47,36 @@ const Users = () => {
               <th>#</th>
               <th>Nome</th>
               <th>E-mail</th>
+              <th></th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Mark</td>
-              <td>Otto</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Jacob</td>
-              <td>Thornton</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Jacob</td>
-              <td>Thornton</td>
-            </tr>
-          </tbody>
+          {users.map((usuarios) => (
+            <>
+              <tbody>
+                <tr>
+                  <td>{usuarios.id}</td>
+                  <td>{usuarios.name}</td>
+                  <td>{usuarios.email}</td>
+                  <td
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <a
+            
+                        href={`/users/form/${usuarios.id}`}
+                      
+                      style={{ color: "white" }}
+                    >
+                      <FaPen />
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </>
+          ))}
         </Table>
       </Container>
     </div>

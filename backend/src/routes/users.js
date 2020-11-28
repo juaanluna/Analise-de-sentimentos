@@ -17,6 +17,16 @@ module.exports = (router) => {
     }
   };
 
+  const findUsers = async (req, res, next) => {
+    const { id } = req.params;
+    try {
+      const users = await Users.findOne({ where: { id } });
+      return res.json(users);
+    } catch (err) {
+      return next(err);
+    }
+  };
+
   const registerUser = async (req, res, next) => {
     const { password } = req.body;
     const salt = bcrypt.genSaltSync(10);
@@ -25,15 +35,15 @@ module.exports = (router) => {
       const users = await Users.create({ ...req.body, password: hash });
       res.json(users);
     } catch (err) {
+      console.log(err)
       return next(err);
     }
   };
 
   const updateUser = async (req, res, next) => {
+    const { id } = req.params;
     try {
-      const users = await Users.update(req.body, {
-        where: { id: req.params.id },
-      });
+      const users = await Users.update(req.body, { where: { id } });
       res.json(users);
     } catch (err) {
       return next(err);
@@ -52,6 +62,7 @@ module.exports = (router) => {
   };
 
   route.get("/", getUsers);
+  route.get("/:id", findUsers);
   route.post("/", registerUser);
   route.put("/:id", updateUser);
   route.delete("/:id", deleteUser);

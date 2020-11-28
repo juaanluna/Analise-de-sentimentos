@@ -1,22 +1,26 @@
 module.exports = {
   up: (queryInterface, DataTypes) => {
-    return queryInterface.createTable('Researches', {
+    return queryInterface.createTable('Searchs', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      researchedProfile: {
-        allowNull: false,
+      searchName: {
+        allowNull: true,
         type: DataTypes.STRING,
       },
-      mainFeeling: {
+      principalWord: {
+        allowNull: true,
+        type: DataTypes.STRING,
+      },
+      positives: {
         allowNull: false,
         type: DataTypes.STRING,
         unique: true,
       },
-      userId: {
+      negatives: {
         allowNull: false,
         type: DataTypes.STRING,
       },
@@ -32,6 +36,6 @@ module.exports = {
   },
 
   down: (queryInterface) => {
-    return queryInterface.dropTable('Researches');
+    return queryInterface.dropTable('Searchs');
   }
 };

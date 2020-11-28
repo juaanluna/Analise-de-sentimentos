@@ -13,7 +13,7 @@ const DefaultForm = ({
   return (
     <>
       <Container>
-        <div class="card" style={{ margin: "30px 0px" }}>
+        <div className="card" style={{ margin: "30px 0px" }}>
           <a
             className="arrowBack"
             href={arrowBackReplace}
@@ -38,14 +38,10 @@ const DefaultForm = ({
             </a>{" "}
             <h4 style={{ margin: "0px" }}>{title}</h4>
           </div>
-          <div class="card-body">
+          <div className="card-body">
             <Form sm={8}>
               {children}
-              <Button type="submit" variant='success' className="btnDefault">
-                {" "}
-                {buttonSubmit}{" "}
-              </Button>{" "}
-              <Button variant="outline-danger">{buttonCancel}</Button>
+            
             </Form>
           </div>
         </div>
