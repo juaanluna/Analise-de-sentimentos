@@ -1,10 +1,16 @@
 import React, { useCallback, useState } from "react";
 import { Button, FormControl, Container } from "react-bootstrap";
-import { toastr } from "react-redux-toastr";
+import { useDispatch } from "react-redux";
+import { sendSearchParams } from "../../store/search/search.action";
 
 const SearchData = () => {
-  const [search, setSearch] = useState("");
+  const [parameter, setParameter] = useState("");
   const onChange = (setState) => (event) => setState(event.target.value);
+  const dispatch = useDispatch();
+
+  const sendSearch = useCallback(() => {
+    dispatch(sendSearchParams(parameter));
+  }, [dispatch, parameter]);
 
   return (
     <Container>
@@ -38,23 +44,25 @@ const SearchData = () => {
         >
           <div id="buttonsHeader" style={{ marginRight: "1%" }}>
             <Button
+              disabled={parameter.length <= 0}
               className="btnFiltrar"
               variant="success"
-              onClick={() => toastr.success("Pesquisa realizada com sucesso")}
+              onClick={() => sendSearch()}
             >
               Pesquisar
             </Button>{" "}
             <Button
+              disabled={parameter.length <= 0}
               className="btnFiltrar"
               variant="danger"
-              onClick={() => toastr.error("Falha ao executar pesquisa")}
+              onClick={() => setParameter("")}
             >
               Limpar Campo
             </Button>
           </div>
           <FormControl
-            onChange={onChange(setSearch)}
-            value={search}
+            onChange={onChange(setParameter)}
+            value={parameter}
             placeholder="Pesquisar assunto"
             aria-label="Username"
             aria-describedby="basic-addon1"

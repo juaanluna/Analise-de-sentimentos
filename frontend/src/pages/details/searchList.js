@@ -9,9 +9,8 @@ import {
 } from "react-bootstrap";
 import { FaRegListAlt } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
 import { getSearchs } from "../../store/search/search.action";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { useState } from "react";
 
 const SearchList = () => {
@@ -21,16 +20,27 @@ const SearchList = () => {
     dispatch(getSearchs());
   }, [dispatch]);
 
-  const [filterList, setFilterList] = useState("");
   const searchs = useSelector((state) => state.searchs.searchs);
+  const [filterList, setFilterList] = useState([]);
+  const [text, setText] = useState("");
 
-  // const onFilter = useCallback(() => {
-  //   const list = searchs.filter((search) => {
-  //     if (search.searchName.toUpperCase().indexOf(filterList.toUpperCase()) > -1) return true;
-  //     else return false
-  //   });
+  useEffect(() => {
+    if (searchs) {
+      setFilterList(searchs);
+    }
+  }, [searchs]);
 
-  // }, [filterList]);
+  const onFilterList = useCallback(() => {
+    const list = filterList.filter(
+      (i) => i.searchName.toUpperCase().indexOf(text.toUpperCase()) > -1
+    );
+    setFilterList(list);
+  }, [text, filterList]);
+
+  const clearFilter = useCallback(() => {
+    setFilterList(searchs);
+    setText("");
+  }, [searchs]);
 
   const onChange = (setState) => (event) => setState(event.target.value);
 
@@ -60,15 +70,24 @@ const SearchList = () => {
             }}
           >
             <div id="buttonsHeader" style={{ marginRight: "1%" }}>
-              <Button className="btnFiltrar" variant="success">
+              <Button
+                className="btnFiltrar"
+                variant="success"
+                onClick={() => onFilterList()}
+              >
                 Filtrar
               </Button>{" "}
-              <Button className="btnFiltrar" variant="danger">
+              <Button
+                className="btnFiltrar"
+                variant="danger"
+                onClick={() => clearFilter()}
+              >
                 Limpar filtro
               </Button>
             </div>
             <FormControl
-              onChange={onChange(setFilterList)}
+              value={text}
+              onChange={onChange(setText)}
               placeholder="Pesquisar por assunto"
               aria-label="Username"
               aria-describedby="basic-addon1"
@@ -91,7 +110,7 @@ const SearchList = () => {
               <th></th>
             </tr>
           </thead>
-          {searchs.map((search) => (
+          {filterList.map((search) => (
             <>
               <tbody>
                 <tr>

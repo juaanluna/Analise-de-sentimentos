@@ -25,6 +25,7 @@ module.exports = (router) => {
     }
   };
 
+
   route.get("/", getSearchs);
   route.get("/:id", findSearchs);
 };

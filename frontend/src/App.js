@@ -8,13 +8,12 @@ import { useSelector } from "react-redux";
 
 const App = () => {
   const isAuth = useSelector((state) => state.users.isAuth);
-
   return (
     <div className="App">
       {isAuth && <Header />}
+      <Messages />
       <Routes />
       <Footer />
-      <Messages />
     </div>
   );
 };

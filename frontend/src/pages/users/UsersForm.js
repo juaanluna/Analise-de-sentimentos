@@ -9,6 +9,7 @@ import {
   createUsers,
   findUsers,
 } from "../../store/users/users.action";
+import Modal from "../../components/Modal";
 
 const usersForm = (props) => {
   const [name, setName] = useState("");
@@ -60,10 +61,34 @@ const usersForm = (props) => {
   return (
     <DefaultForm
       icon={<FaPen />}
-      title={isEdit? "Editar usuário": "Cadastrar usuário"}
+      title={isEdit ? "Editar usuário" : "Cadastrar usuário"}
       arrowBackReplace="/users"
     >
-      <Form.Group as={Col} controlId="formGridName">
+      <Modal
+        show={modalOpen}
+        onHide={() => setModalOpen(false)}
+        title="Deletar usuário"
+        btnFooter={
+          <>
+            <Button
+              style={{ background: "#218838" }}
+              onClick={() => {
+                onDeleteUser();
+              }}
+            >
+              Sim
+            </Button>{" "}
+            <Button variant="danger" onClick={() => setModalOpen(false)}>
+              Não
+            </Button>
+          </>
+        }
+      >
+        <a>
+          Tem certeza que deseja deletar <b>{user.name}</b>?
+        </a>
+      </Modal>
+      <Form.Group as={Col} >
         <Form.Label>Nome</Form.Label>
         <Form.Control
           placeholder="Ex: Juan Luna"
@@ -71,7 +96,7 @@ const usersForm = (props) => {
           value={name}
         />
       </Form.Group>
-      <Form.Group as={Col} controlId="formGridBirthday">
+      <Form.Group as={Col} >
         <Form.Label>E-mail</Form.Label>
         <Form.Control
           placeholder="Ex: Juan@mail.com"
@@ -80,7 +105,7 @@ const usersForm = (props) => {
         />
       </Form.Group>
       {!isEdit && (
-        <Form.Group as={Col} controlId="formGridCpf">
+        <Form.Group as={Col} >
           <Form.Label>Senha</Form.Label>
           <Form.Control
             type="password"
@@ -103,17 +128,14 @@ const usersForm = (props) => {
           <Button
             variant="outline-danger"
             type="reset"
-            onClick={() => onDeleteUser()}
+            onClick={() => setModalOpen(true)}
           >
             Deletar
           </Button>
         </>
       ) : (
         <>
-          <Button
-            variant="outline-success"
-            onClick={() => onRegister()}
-          >
+          <Button variant="outline-success" onClick={() => onRegister()}>
             Cadastrar
           </Button>{" "}
           <Button

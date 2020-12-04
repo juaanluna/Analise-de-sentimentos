@@ -10,12 +10,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
     },
     positives: {
-      allowNull: false,
+      allowNull: true,
       type: DataTypes.STRING,
-      unique: true,
     },
     negatives: {
-      allowNull: false,
+      allowNull: true,
       type: DataTypes.STRING,
     },
   });

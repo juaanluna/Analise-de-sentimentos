@@ -1,4 +1,3 @@
-/* eslint-disable import/no-cycle */
 import { UserTypes } from "../users/users.action";
 
 const INITIAL_STATE = {
@@ -7,11 +6,6 @@ const INITIAL_STATE = {
   isAuth: localStorage.getItem("user") ? true : false,
   signup: JSON.parse(localStorage.getItem("user")) || null,
 };
-
-// const onPutArticle = (state, action) => {
-//   const habit = action.payload.updatedHabit;
-//   return { ...state, habit };
-// };
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {

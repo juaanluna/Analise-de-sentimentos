@@ -68,10 +68,8 @@ export const createUsers = (values) => (dispatch) => {
   axios
     .post(`${Api}/users`, values)
     .then((resp) => {
-      console.log(resp);
       dispatch({ type: UserTypes.CREATE_USERS, payload: resp.data });
       window.location.replace("/users");
-      toastr.success("Usuário cadastrado");
     })
     .catch((erro) => {
       console.log(erro);
@@ -85,7 +83,6 @@ export const updateUsers = (values, id) => (dispatch) => {
     .then((resp) => {
       dispatch({ type: UserTypes.UPDATE_USERS, payload: resp.data });
       window.location.replace("/users");
-      toastr.success("Usuário atualizado");
     })
     .catch((erro) => {
       console.log(erro);
@@ -99,7 +96,6 @@ export const deleteUsers = (id) => (dispatch) => {
     .then((resp) => {
       dispatch({ type: UserTypes.DELETE_USERS, payload: resp.data });
       window.location.replace("/users");
-      toastr.success("Usuário deletado");
     })
     .catch((erro) => {
       console.log(erro);

@@ -1,25 +1,13 @@
 module.exports = {
   up: (queryInterface, DataTypes) => {
-    return queryInterface.createTable('Searchs', {
+    return queryInterface.createTable('Params', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: DataTypes.INTEGER,
       },
-      searchName: {
-        allowNull: true,
-        type: DataTypes.STRING,
-      },
-      principalWord: {
-        allowNull: true,
-        type: DataTypes.STRING,
-      },
-      positives: {
-        allowNull: true,
-        type: DataTypes.STRING,
-      },
-      negatives: {
+      parameter: {
         allowNull: true,
         type: DataTypes.STRING,
       },
@@ -35,6 +23,6 @@ module.exports = {
   },
 
   down: (queryInterface) => {
-    return queryInterface.dropTable('Searchs');
+    return queryInterface.dropTable('Params');
   }
 };

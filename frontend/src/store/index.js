@@ -10,7 +10,6 @@ const reducers = combineReducers({
   toastr,
   users,
   searchs,
-
 });
 
 const store = createStore(

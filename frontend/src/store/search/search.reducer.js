@@ -4,6 +4,7 @@ import { searchTypes } from "./search.action";
 const INITIAL_STATE = {
   search: {},
   searchs: [],
+  params: [],
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -12,6 +13,8 @@ export default (state = INITIAL_STATE, action) => {
       return { ...state, searchs: action.payload };
     case searchTypes.FIND_SEARCH:
       return { ...state, search: action.payload };
+    case searchTypes.SEND_PARAMS:
+      return { ...state, params: action.payload };
     default:
       return state;
   }
